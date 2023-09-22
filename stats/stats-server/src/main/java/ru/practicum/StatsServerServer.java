@@ -21,7 +21,7 @@ public class StatsServerServer {
 
     public List<StatsDtoOut> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         log.info("STATS SERVER getStats start {}, end {}, uris {}, unique {}", start, end, uris, unique);
-        if (unique) return StatsMapper.toStatsDtoOut(statsRepository.findStatsWithParamsUnique(start, end, uris));
+        if (unique && uris != null) return StatsMapper.toStatsDtoOut(statsRepository.findStatsWithParamsUnique(start, end, uris));
         if (unique && uris == null)
             return StatsMapper.toStatsDtoOut(statsRepository.findStatsWithParamsUniqueAll(start, end));
         if (uris == null) return StatsMapper.toStatsDtoOut(statsRepository.findStatsWithParamsAll(start, end));

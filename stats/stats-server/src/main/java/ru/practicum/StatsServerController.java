@@ -16,9 +16,9 @@ public class StatsServerController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
-    private final StatsServerServer statsServer;
+    private final StatsServerService statsServer;
 
-    public StatsServerController(StatsServerServer statsServer) {
+    public StatsServerController(StatsServerService statsServer) {
         this.statsServer = statsServer;
     }
 

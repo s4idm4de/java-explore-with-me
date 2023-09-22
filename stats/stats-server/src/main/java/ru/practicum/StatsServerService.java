@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class StatsServerServer {
+public class StatsServerService {
 
     @Autowired
     private final StatsServerRepository statsRepository;

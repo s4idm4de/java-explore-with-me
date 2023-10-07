@@ -1,8 +1,10 @@
 package ru.practicum.model.event.dto;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 import ru.practicum.model.Location;
-import ru.practicum.model.dto.ActionStatus;
+import ru.practicum.model.request.ActionStatus;
 
 @Data
 @Builder(toBuilder = true)
@@ -11,11 +13,14 @@ import ru.practicum.model.dto.ActionStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateEventUserRequest {
-
+    @Nullable
+    @Length(min = 20, max = 2000)
     private String annotation; //20-2000
 
     private Long category;
 
+    @Nullable
+    @Length(min = 20, max = 7000)
     private String description; //20-7000
 
     private String eventDate;
@@ -30,5 +35,7 @@ public class UpdateEventUserRequest {
 
     private ActionStatus stateAction;
 
+    @Nullable
+    @Length(min = 3, max = 120)
     private String title; //3-120
 }

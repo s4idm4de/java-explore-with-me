@@ -1,9 +1,7 @@
-package ru.practicum.model.event.dto;
+package ru.practicum.model.request.dto;
 
 import lombok.*;
 import ru.practicum.model.request.EventRequestStatus;
-
-import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
@@ -11,8 +9,14 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventRequestStatusUpdateRequest {
-    private List<Long> requestIds;
+public class ParticipationRequestDto {
+    private String created;
+
+    private Long event;
+
+    private Long id;
+
+    private Long requester;
 
     private EventRequestStatus status;
 }

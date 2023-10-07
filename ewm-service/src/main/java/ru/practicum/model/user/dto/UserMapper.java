@@ -4,7 +4,6 @@ import ru.practicum.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserMapper {
     public static User toUser(NewUserRequest newUserRequest) {
@@ -28,7 +27,6 @@ public class UserMapper {
                 .name(user.getName())
                 .build();
     }
-
 
 
     public static List<UserDto> toUserDto(Iterable<User> users) {

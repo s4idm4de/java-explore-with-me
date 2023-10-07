@@ -1,7 +1,11 @@
 package ru.practicum.model.event.dto;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import ru.practicum.model.Location;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder(toBuilder = true)
@@ -10,14 +14,24 @@ import ru.practicum.model.Location;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewEventDto {
-    private String annotation; //minLength 20, max 2000
+    @NotNull
+    @NotBlank
+    @Length(min = 20, max = 2000)
+    private String annotation;
 
+    @NotNull
     private Long category;
 
-    private String description; //20-7000
 
+    @NotNull
+    @NotBlank
+    @Length(min = 20, max = 7000)
+    private String description;
+
+    @NotNull
     private String eventDate;
 
+    @NotNull
     private Location location;
 
     private Boolean paid = false;
@@ -26,5 +40,8 @@ public class NewEventDto {
 
     private Boolean requestModeration = true;
 
+    @NotNull
+    @NotBlank
+    @Length(min = 3, max = 120)
     private String title; //3-120
 }

@@ -1,7 +1,10 @@
 package ru.practicum.model.event.dto;
 
 import lombok.*;
-import ru.practicum.model.dto.ParticipationRequestDto;
+import ru.practicum.model.request.dto.ParticipationRequestDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
@@ -10,7 +13,7 @@ import ru.practicum.model.dto.ParticipationRequestDto;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventRequestStatusUpdateResult {
-    private ParticipationRequestDto confirmedRequests; //список???
+    private List<ParticipationRequestDto> confirmedRequests = new ArrayList<>(); //список???
 
-    private ParticipationRequestDto rejectedRequests;
+    private List<ParticipationRequestDto> rejectedRequests = new ArrayList<>();
 }

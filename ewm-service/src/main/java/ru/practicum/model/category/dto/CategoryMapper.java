@@ -1,8 +1,6 @@
 package ru.practicum.model.category.dto;
 
 import ru.practicum.model.category.Category;
-import ru.practicum.model.user.User;
-import ru.practicum.model.user.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.List;

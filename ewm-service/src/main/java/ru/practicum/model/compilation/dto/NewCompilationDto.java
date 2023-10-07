@@ -1,10 +1,11 @@
-package ru.practicum.model.category.dto;
+package ru.practicum.model.compilation.dto;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
@@ -12,11 +13,13 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
-    private Long id;
+public class NewCompilationDto {
+    private List<Long> events;
 
-    @NotNull
+    private Boolean pinned = false;
+
     @NotBlank
+    @NotNull
     @Length(min = 1, max = 50)
-    private String name;
+    private String title;
 }

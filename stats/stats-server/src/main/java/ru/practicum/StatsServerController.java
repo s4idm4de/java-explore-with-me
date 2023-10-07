@@ -26,16 +26,18 @@ public class StatsServerController {
     }
 
     @GetMapping("/stats")
-    public List<StatsDtoOut> getStats(@RequestParam String start,
-                                      @RequestParam String end,
+    public List<StatsDtoOut> getStats(@RequestParam(name = "start") String start,
+                                      @RequestParam(name = "end") String end,
                                       @RequestParam(required = false) List<String> uris,
                                       @RequestParam(defaultValue = "false") Boolean unique
     ) {
         try {
-            if ((start == null && end != null) || (start != null && end == null)) throw new ApiException("wrong dates");
+            if (((start == null || start.isBlank()) && end != null) || (start != null && (end == null || end.isBlank())))
+                throw new ApiException("wrong dates");
             LocalDateTime startDttm = LocalDateTime.parse(start, formatter);
             LocalDateTime endDttm = LocalDateTime.parse(end, formatter);
             log.info("STATS-SERVER CONTROLLER getStats start {}, end {}, uris {}, unique {}", startDttm, endDttm, uris, unique);
+            if (startDttm.isAfter(endDttm)) throw new ApiException("wrong dates");
             return statsServer.getStats(startDttm, endDttm, uris, unique);
         } catch (ApiException e) {
             throw new ResponseStatusException(
@@ -47,6 +49,6 @@ public class StatsServerController {
     public ResponseEntity<Void> setStats(@RequestBody StatsDto statsDto) {
         log.info("STATS-CONTROLLER setStats {}", statsDto);
         statsServer.setStats(statsDto);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

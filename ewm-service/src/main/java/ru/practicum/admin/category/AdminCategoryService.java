@@ -33,16 +33,9 @@ public class AdminCategoryService {
 
     public CategoryDto postCategory(NewCategoryDto newCategoryDto) {
         log.info("admin category service postCategory {}", newCategoryDto);
-        try {
-            if (!categoryRepository.findAllByName(newCategoryDto.getName()).isEmpty())
-                throw new ValidatedException("name is not unique");
-            Category category = CategoryMapper.toCategory(newCategoryDto);
-            CategoryDto categoryDto = CategoryMapper.toCategoryDto(categoryRepository.save(category));
-            return categoryDto;
-        } catch (ValidatedException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, e.getMessage(), e);
-        }
+        Category category = CategoryMapper.toCategory(newCategoryDto);
+        return CategoryMapper.toCategoryDto(categoryRepository.save(category));
+
     }
 
     public void deleteCategory(Long catId) {
@@ -68,19 +61,11 @@ public class AdminCategoryService {
         try {
             Category category = categoryRepository.findById(catId).orElseThrow(()
                     -> new NotFoundException("no such category"));
-            if (categoryDto.getName() != null
-                    && !category.getName().equals(categoryDto.getName())
-                    && !categoryRepository.findAllByName(categoryDto.getName()).isEmpty()) {
-                throw new ValidatedException("name repeats");
-            }
             category.setName(categoryDto.getName()); //в кактегории только имя и айдишник, уникальность прописана в Category
             return CategoryMapper.toCategoryDto(categoryRepository.save(category));
         } catch (NotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
-        } catch (ValidatedException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, e.getMessage(), e);
         }
     }
 }

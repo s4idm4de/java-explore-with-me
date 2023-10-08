@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.exception.NotFoundException;
-import ru.practicum.exception.ValidatedException;
 import ru.practicum.model.user.User;
 import ru.practicum.model.user.dto.NewUserRequest;
 import ru.practicum.model.user.dto.UserDto;
@@ -43,15 +42,9 @@ public class AdminUserService {
 
     public UserDto postUser(NewUserRequest newUserRequest) {
         log.info("admin UserService postUser newUserRequest {}", newUserRequest);
-        try {
-            if (!userRepository.findAllByName(newUserRequest.getName()).isEmpty())
-                throw new ValidatedException("name is not new");
-            User user = UserMapper.toUser(newUserRequest);
-            return UserMapper.toUserDto(userRepository.save(user));
-        } catch (ValidatedException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, e.getMessage(), e);
-        }
+        User user = UserMapper.toUser(newUserRequest);
+        return UserMapper.toUserDto(userRepository.save(user));
+
     }
 
     public void deleteUser(Long userId) {

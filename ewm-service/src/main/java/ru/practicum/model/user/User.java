@@ -22,4 +22,7 @@ public class User {
 
     @Column(name = "email", length = 254)
     private String email;
+
+    @Column(name = "allow_to_comment")
+    private Boolean allowToComment = true;
 }

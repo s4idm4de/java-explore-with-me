@@ -43,6 +43,7 @@ public class AdminUserService {
     public UserDto postUser(NewUserRequest newUserRequest) {
         log.info("admin UserService postUser newUserRequest {}", newUserRequest);
         User user = UserMapper.toUser(newUserRequest);
+        user.setAllowToComment(true);
         return UserMapper.toUserDto(userRepository.save(user));
 
     }
